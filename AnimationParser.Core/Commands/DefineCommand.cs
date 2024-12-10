@@ -1,5 +1,8 @@
 namespace AnimationParser.Core.Commands;
 
+/// <summary>
+/// Represents a command that defines an object.
+/// </summary>
 public class DefineCommand : IAnimationCommand
 {
     public string ObjectName { get; }

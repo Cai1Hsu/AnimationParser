@@ -2,6 +2,10 @@ using System.Runtime.CompilerServices;
 
 namespace AnimationParser.Core.Tokens;
 
+/// <summary>
+/// Represents a factory that creates tokens. Handles the
+/// position and source index of the tokens.
+/// </summary>
 public class TokenFactory
 {
     public TokenPosition CurrentPosition { get; protected set; }

@@ -2,6 +2,9 @@ using System.Numerics;
 
 namespace AnimationParser.Core.Commands;
 
+/// <summary>
+/// Represents a command that places an object at a specific position.
+/// </summary>
 public class PlaceCommand : IAnimationCommand
 {
     public string ObjectName { get; }

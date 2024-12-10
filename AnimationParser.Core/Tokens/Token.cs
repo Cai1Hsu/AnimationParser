@@ -3,6 +3,9 @@ using System.Globalization;
 
 namespace AnimationParser.Core.Tokens;
 
+/// <summary>
+/// Represents a token in the source document.
+/// </summary>
 public struct Token
 {
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]

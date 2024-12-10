@@ -3,6 +3,15 @@ using AnimationParser.Core.Tokens;
 
 namespace AnimationParser.Core;
 
+/// <summary>
+/// The lexer is responsible for converting the input text into a sequence of tokens.
+/// Mainly, it is responsible for skipping whitespace and comments, and identifying
+/// keywords, identifiers, numbers, and symbols.
+/// This implementation is optimized for performance and minimal memory allocations.
+/// And is stream-based, with stackless coroutines, meaning it doesn't create a list of tokens in memory.
+/// Also, all token uses the same underlying string, so no matter how long the input is, how many tokens are created,
+/// the memory usage is constant, which is the size of the stackless coroutine.
+/// </summary>
 public class Lexer
 {
     private readonly string sourceDocument;
@@ -25,6 +34,12 @@ public class Lexer
         tokenFactory.MoveNext();
     }
 
+    /// <summary>
+    /// Tokenize the input text. Using a stackless coroutine to generate tokens.
+    /// This method is lazy, meaning it will only generate tokens when you iterate over the result.
+    /// </summary>
+    /// <returns>A token each time the MoveNext method is called.</returns>
+    /// <exception cref="Exception">If an invalid character is found.</exception>
     public IEnumerable<Token> Tokenize()
     {
         while (CurrentSourceIndex < sourceDocument.Length)
@@ -74,6 +89,12 @@ public class Lexer
         yield return tokenFactory.EndOfSource;
     }
     
+    /// <summary>
+    /// Read a token that starts with a minus sign.
+    /// Currently only support negative numbers.
+    /// </summary>
+    /// <returns>A token representing a token starting with a minus sign.</returns>
+    /// <exception cref="Exception">If the token can not be parsed.</exception>
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     private Token ReadTokenStartWithMinus()
     {
@@ -94,6 +115,10 @@ public class Lexer
         }
     }
 
+    /// <summary>
+    /// Read a keyword or an identifier. Identifiers can contain letters, digits, and underscores.
+    /// </summary>
+    /// <returns>A token representing a keyword or an identifier.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     private Token ReadKeywordOrIdentifier()
     {
@@ -110,6 +135,10 @@ public class Lexer
         };
     }
 
+    /// <summary>
+    /// Read a number. A number can contain digits and a dot.
+    /// </summary>
+    /// <returns>A token representing a number.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     private Token ReadNumber()
     {
@@ -120,6 +149,11 @@ public class Lexer
         return tokenFactory.Number(CurrentSourceIndex - start);
     }
 
+    /// <summary>
+    /// Check if the given text is a keyword.
+    /// </summary>
+    /// <param name="text">The text to check.</param>
+    /// <returns>True if the text is a keyword, otherwise false.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     private bool IsKeyword(ReadOnlySpan<char> text)
     {
