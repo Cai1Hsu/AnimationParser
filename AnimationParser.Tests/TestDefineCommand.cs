@@ -12,14 +12,8 @@ public class TestDefineCommand
         var context = new DefineMockedContext();
 
         var lexer = new Lexer(code);
-        var parser = new Parser(lexer.Tokenize());
 
-        var commands = parser.Parse();
-
-        foreach (var command in commands)
-        {
-            command.Execute(context);
-        }
+        lexer.Tokenize().InterprettedlyExecuteAll(context);
 
         Assert.That(context.IsDrawableAdded, Is.True);
         Assert.That(context.GetObject("drawable"), Is.Not.Null);

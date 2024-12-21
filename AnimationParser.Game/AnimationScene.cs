@@ -151,7 +151,7 @@ public partial class AnimationScene : Container
         context = new InterpreterContext(this);
     }
 
-    private IEnumerator<IAnimationCommand>? commandEnumerator;
+    private IEnumerator<ISemanticallySingleCommand>? commandEnumerator;
     private void MoveNextCommand()
     {
         Debug.Assert(commandEnumerator is not null);

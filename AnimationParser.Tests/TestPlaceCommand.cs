@@ -18,12 +18,12 @@ public class TestPlaceCommand
         var lexer = new Lexer(code);
         var parser = new Parser(lexer.Tokenize());
 
-        var commands = parser.Parse().ToList();
+        var commands = parser.Parse().Select(c => c as ISemanticallySingleCommand).ToList();
 
-        commands[0].Execute(context);
+        commands[0]!.Execute(context);
         Assert.That(context.GetObject("drawable")!.Position, Is.EqualTo(Vector2.Zero));
 
-        commands[1].Execute(context);
+        commands[1]!.Execute(context);
         Assert.That(context.GetObject("drawable")!.Position, Is.EqualTo(new Vector2(10, 10)));
     }
 

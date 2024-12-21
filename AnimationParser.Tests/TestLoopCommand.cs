@@ -15,14 +15,8 @@ public class TestLoopCommand
         var context = new ShiftMockedContext();
 
         var lexer = new Lexer(code);
-        var parser = new Parser(lexer.Tokenize());
 
-        var commands = parser.Parse();
-
-        foreach (var command in commands)
-        {
-            command.Execute(context);
-        }
+        lexer.Tokenize().InterprettedlyExecuteAll(context);
 
         Assert.That(context.LoopCount, Is.EqualTo(42));
     }

@@ -17,12 +17,12 @@ public class TestEraseCommand
         var lexer = new Lexer(code);
         var parser = new Parser(lexer.Tokenize());
 
-        var commands = parser.Parse().ToList();
+        var commands = parser.Parse().Select(c => c as ISemanticallySingleCommand).ToList();
 
-        commands[0].Execute(context);
+        commands[0]!.Execute(context);
         Assert.That(context.GetObject("drawable"), Is.Not.Null);
 
-        commands[1].Execute(context);
+        commands[1]!.Execute(context);
 
         Assert.That(context.GetObject("drawable"), Is.Null);
         Assert.That(context.IsErasedExecuted, Is.True);

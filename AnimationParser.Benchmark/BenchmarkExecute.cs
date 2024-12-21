@@ -6,7 +6,7 @@ using BenchmarkDotNet.Attributes;
 [MemoryDiagnoser]
 public class BenchmarkExecute
 {
-    private readonly IEnumerator<IAnimationCommand> commands;
+    private readonly IEnumerator<ISemanticallySingleCommand> commands;
     private readonly AnimationContext context = new AnimationContext();
 
     public BenchmarkExecute()

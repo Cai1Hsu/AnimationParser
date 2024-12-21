@@ -154,7 +154,7 @@ public class AnimationWindow : ImguiWindowBase
     {
     }
 
-    private IEnumerator<IAnimationCommand>? commandEnumerator;
+    private IEnumerator<ISemanticallySingleCommand>? commandEnumerator;
     private bool MoveNextCommand()
     {
         Debug.Assert(commandEnumerator is not null);
