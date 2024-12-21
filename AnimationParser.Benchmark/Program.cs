@@ -24,11 +24,11 @@ BenchmarkRunner.Run<BenchmarkAnimationParser>();
 //
 //    | Method                     | Mean       | Error    | StdDev   | Gen0   | Allocated |
 //    |--------------------------- |-----------:|---------:|---------:|-------:|----------:|
-//    | BenchmarkLexing            |   751.4 ns |  1.79 ns |  1.67 ns | 0.0153 |     144 B |
-//    | BenchmarkParsing           | 2,200.9 ns |  7.18 ns |  6.72 ns | 0.2289 |    2184 B |
-//    | BenchmarkLexingToParsing   | 2,711.3 ns |  6.80 ns |  6.36 ns | 0.2403 |    2264 B |
-//    | BenchmarkExecuting         | 1,929.3 ns |  7.19 ns |  5.62 ns | 0.4501 |    4240 B |
-//    | BenchmarkLexingToExecuting | 4,976.2 ns | 86.57 ns | 72.29 ns | 0.6866 |    6504 B |
+//    | BenchmarkLexing            |   691.7 ns |  4.02 ns |  3.76 ns | 0.0153 |     144 B |
+//    | BenchmarkParsing           | 2,276.6 ns | 10.39 ns |  9.21 ns | 0.2289 |    2184 B |
+//    | BenchmarkLexingToParsing   | 2,573.0 ns |  6.69 ns |  5.93 ns | 0.2403 |    2264 B |
+//    | BenchmarkExecuting         | 2,564.3 ns | 12.91 ns | 11.45 ns | 1.2970 |   12240 B |
+//    | BenchmarkLexingToExecuting | 5,671.3 ns | 31.45 ns | 26.27 ns | 1.5411 |   14545 B |
 //
 //    // * Hints *
 //    Outliers
@@ -48,7 +48,7 @@ BenchmarkRunner.Run<BenchmarkAnimationParser>();
 //
 //
 //    // ***** BenchmarkRunner: End *****
-//    Run time: 00:01:32 (92 sec), executed benchmarks: 5
+//    Run time: 00:01:28 (88.89 sec), executed benchmarks: 5
 
 // 2. with code below
 //     const string code = """
@@ -87,11 +87,11 @@ BenchmarkRunner.Run<BenchmarkAnimationParser>();
 //
 //    | Method                     | Mean      | Error     | StdDev    | Gen0   | Allocated |
 //    |--------------------------- |----------:|----------:|----------:|-------:|----------:|
-//    | BenchmarkLexing            |  4.306 us | 0.0163 us | 0.0153 us | 0.0153 |     144 B |
-//    | BenchmarkParsing           | 13.206 us | 0.0441 us | 0.0368 us | 1.3123 |   12473 B |
-//    | BenchmarkLexingToParsing   | 16.313 us | 0.0626 us | 0.0555 us | 1.3123 |   12553 B |
-//    | BenchmarkExecuting         | 11.698 us | 0.0920 us | 0.0718 us | 2.5635 |   24240 B |
-//    | BenchmarkLexingToExecuting | 28.540 us | 0.0714 us | 0.0633 us | 3.9063 |   36794 B |
+//    | BenchmarkLexing            |  3.961 us | 0.0128 us | 0.0107 us | 0.0153 |     144 B |
+//    | BenchmarkParsing           | 13.667 us | 0.0452 us | 0.0423 us | 1.3123 |   12473 B |
+//    | BenchmarkLexingToParsing   | 15.703 us | 0.0668 us | 0.0625 us | 1.3123 |   12553 B |
+//    | BenchmarkExecuting         | 16.009 us | 0.1072 us | 0.1002 us | 7.6904 |   72480 B |
+//    | BenchmarkLexingToExecuting | 33.756 us | 0.2629 us | 0.2330 us | 8.9722 |   84797 B |
 //
 //    // * Hints *
 //    Outliers
@@ -111,7 +111,7 @@ BenchmarkRunner.Run<BenchmarkAnimationParser>();
 //
 //
 //    // ***** BenchmarkRunner: End *****
-//    Run time: 00:01:38 (98.74 sec), executed benchmarks: 5
+//    Run time: 00:01:21 (81.11 sec), executed benchmarks: 5
 
 [MemoryDiagnoser]
 public class BenchmarkAnimationParser
