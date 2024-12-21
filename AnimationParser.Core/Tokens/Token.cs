@@ -12,13 +12,13 @@ public struct Token
     private string sourceDocument;
 
     public TokenType Type { get; internal set; }
-    public readonly ReadOnlySpan<char> Text => sourceDocument.AsSpan(SourceIndex, Length);
+    public readonly ReadOnlySpan<char> Text => sourceDocument.AsSpan(SourceIndex, TextLength);
 
     public TokenPosition Position { get; internal set; }
 
     public int SourceIndex { get; internal set; }
 
-    public int Length { get; internal set; }
+    public int TextLength { get; internal set; }
 
     public Token(string sourceDocument)
     {

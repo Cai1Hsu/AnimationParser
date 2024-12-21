@@ -105,7 +105,7 @@ public class Lexer
             var numberToken =  ReadNumber();
 
             numberToken.SourceIndex--; // Move back to include the minus sign
-            numberToken.Length++; // Include the minus sign in the length
+            numberToken.TextLength++; // Include the minus sign in the length
 
             return numberToken;
         }

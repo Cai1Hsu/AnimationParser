@@ -11,7 +11,7 @@ public class MockedTokenFactory : TokenFactory
 
     private Token MoveForward(Token token)
     {
-        for (int i = 0; i < token.Length; i++)
+        for (int i = 0; i < token.TextLength; i++)
             MoveNext();
 
         return token;
@@ -22,7 +22,7 @@ public class MockedTokenFactory : TokenFactory
         Type = TokenType.LeftParen,
         Position = CurrentPosition,
         SourceIndex = 0,
-        Length = 1,
+        TextLength = 1,
     });
 
     public override Token RightParen => MoveForward(new Token(")")
@@ -30,7 +30,7 @@ public class MockedTokenFactory : TokenFactory
         Type = TokenType.RightParen,
         Position = CurrentPosition,
         SourceIndex = 0,
-        Length = 1,
+        TextLength = 1,
     });
 
     public override Token EndOfSource => MoveForward(new Token
@@ -38,7 +38,7 @@ public class MockedTokenFactory : TokenFactory
         Type = TokenType.EndOfSource,
         Position = CurrentPosition,
         SourceIndex = 0,
-        Length = 0,
+        TextLength = 0,
     });
 
     public Token Identifier(string text) => MoveForward(new Token(text)
@@ -46,7 +46,7 @@ public class MockedTokenFactory : TokenFactory
         Type = TokenType.Identifier,
         Position = CurrentPosition,
         SourceIndex = 0,
-        Length = text.Length,
+        TextLength = text.Length,
     });
 
     public Token Keyword(string text) => MoveForward(new Token(text)
@@ -54,7 +54,7 @@ public class MockedTokenFactory : TokenFactory
         Type = TokenType.Keyword,
         Position = CurrentPosition,
         SourceIndex = 0,
-        Length = text.Length,
+        TextLength = text.Length,
     });
 
     public Token Number(string text) => MoveForward(new Token(text)
@@ -62,6 +62,6 @@ public class MockedTokenFactory : TokenFactory
         Type = TokenType.Number,
         Position = CurrentPosition,
         SourceIndex = 0,
-        Length = text.Length,
+        TextLength = text.Length,
     });
 }

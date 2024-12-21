@@ -74,7 +74,7 @@ public class TokenFactory
                 Type = TokenType.LeftParen,
                 Position = startPosition,
                 SourceIndex = GetTokenStartIndex(1),
-                Length = 1,
+                TextLength = 1,
             };
 
             startPosition = CurrentPosition;
@@ -93,7 +93,7 @@ public class TokenFactory
                 Type = TokenType.RightParen,
                 Position = startPosition,
                 SourceIndex = GetTokenStartIndex(1),
-                Length = 1
+                TextLength = 1
             };
 
             startPosition = CurrentPosition;
@@ -112,7 +112,7 @@ public class TokenFactory
                 Type = TokenType.EndOfSource,
                 Position = startPosition,
                 SourceIndex = GetTokenStartIndex(0),
-                Length = 0
+                TextLength = 0
             };
 
             startPosition = CurrentPosition;
@@ -129,7 +129,7 @@ public class TokenFactory
             Type = TokenType.Keyword,
             Position = startPosition,
             SourceIndex = GetTokenStartIndex(length),
-            Length = length
+            TextLength = length
         };
 
         startPosition = CurrentPosition;
@@ -145,7 +145,7 @@ public class TokenFactory
             Type = TokenType.Identifier,
             Position = startPosition,
             SourceIndex = GetTokenStartIndex(length),
-            Length = length
+            TextLength = length
         };
 
         startPosition = CurrentPosition;
@@ -161,7 +161,7 @@ public class TokenFactory
             Type = TokenType.Number,
             Position = startPosition,
             SourceIndex = GetTokenStartIndex(length),
-            Length = length
+            TextLength = length
         };
 
         startPosition = CurrentPosition;
