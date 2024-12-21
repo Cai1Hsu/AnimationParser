@@ -40,11 +40,14 @@ public class Lexer
     /// </summary>
     /// <returns>A token each time the MoveNext method is called.</returns>
     /// <exception cref="Exception">If an invalid character is found.</exception>
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
     public IEnumerable<Token> Tokenize()
     {
         while (CurrentSourceIndex < sourceDocument.Length)
         {
-            switch (CurrentChar)
+            var c = CurrentChar;
+
+            switch (c)
             {
                 case '\n':
                     tokenFactory.OnNewLine();
@@ -54,21 +57,23 @@ public class Lexer
                 case '\r':
                     MoveNext();
                     continue;
+            }
 
+            tokenFactory.BeginToken();
+
+            switch (c)
+            {
                 case '(':
-                    tokenFactory.BeginToken();
                     MoveNext();
                     yield return tokenFactory.LeftParen;
                     continue;
 
                 case ')':
-                    tokenFactory.BeginToken();
                     MoveNext();
                     yield return tokenFactory.RightParen;
                     continue;
 
                 default:
-                    tokenFactory.BeginToken();
                     if (char.IsLetter(CurrentChar))
                     {
                         yield return ReadKeywordOrIdentifier();
