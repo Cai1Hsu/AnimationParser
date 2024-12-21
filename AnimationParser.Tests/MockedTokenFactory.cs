@@ -17,7 +17,7 @@ public class MockedTokenFactory : TokenFactory
         return token;
     }
 
-    public override Token LeftParen => MoveForward(new Token("(")
+    public new Token LeftParen => MoveForward(new Token("(")
     {
         Type = TokenType.LeftParen,
         Position = CurrentPosition,
@@ -25,7 +25,7 @@ public class MockedTokenFactory : TokenFactory
         TextLength = 1,
     });
 
-    public override Token RightParen => MoveForward(new Token(")")
+    public new Token RightParen => MoveForward(new Token(")")
     {
         Type = TokenType.RightParen,
         Position = CurrentPosition,
@@ -33,7 +33,7 @@ public class MockedTokenFactory : TokenFactory
         TextLength = 1,
     });
 
-    public override Token EndOfSource => MoveForward(new Token
+    public new Token EndOfSource => MoveForward(new Token
     {
         Type = TokenType.EndOfSource,
         Position = CurrentPosition,

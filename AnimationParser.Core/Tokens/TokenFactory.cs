@@ -80,9 +80,9 @@ public class TokenFactory
         return CurrentSourceIndex - length;
     }
 
-    public virtual Token LeftParen
+    public Token LeftParen
     {
-        [MethodImpl(MethodImplOptions.AggressiveOptimization)]
+        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
         get
         {
             Token token = new(SourceDocument)
@@ -97,9 +97,9 @@ public class TokenFactory
         }
     }
 
-    public virtual Token RightParen
+    public Token RightParen
     {
-        [MethodImpl(MethodImplOptions.AggressiveOptimization)]
+        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
         get
         {
             Token token = new(SourceDocument)
@@ -114,9 +114,9 @@ public class TokenFactory
         }
     }
 
-    public virtual Token EndOfSource
+    public Token EndOfSource
     {
-        [MethodImpl(MethodImplOptions.AggressiveOptimization)]
+        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
         get
         {
             Token token = new(SourceDocument)
@@ -131,8 +131,8 @@ public class TokenFactory
         }
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
-    public virtual Token Keyword(int length)
+    [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+    public Token Keyword(int length)
     {
         Token token = new(SourceDocument)
         {
@@ -145,8 +145,8 @@ public class TokenFactory
         return token;
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
-    public virtual Token Identifier(int length)
+    [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+    public Token Identifier(int length)
     {
         Token token = new(SourceDocument)
         {
@@ -159,8 +159,8 @@ public class TokenFactory
         return token;
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
-    public virtual Token Number(int length)
+    [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+    public Token Number(int length)
     {
         Token token = new(SourceDocument)
         {
