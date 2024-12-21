@@ -1,5 +1,6 @@
 using System.Numerics;
 using AnimationParser.Core;
+using AnimationParser.Core.Commands;
 
 namespace AnimationParser.Tests;
 
