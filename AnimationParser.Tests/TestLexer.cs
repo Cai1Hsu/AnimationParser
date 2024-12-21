@@ -184,6 +184,7 @@ public class TestLexer
         }));
     }
 
+    [Test]
     public void TestTokenPosition_WithSpaces()
     {
         const string input = "   object  "; // 3 leading and 2 trailing
@@ -198,6 +199,7 @@ public class TestLexer
         }));
     }
 
+    [Test]
     public void TestTokenPosition_WithNewLines()
     {
         const string input = """
