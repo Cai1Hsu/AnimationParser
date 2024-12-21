@@ -168,4 +168,60 @@ public class TestLexer
 
         VerifyTokenStream(tokens, expected);
     }
+
+    [Test]
+    public void TestTokenPosition_NoNewLineOrSpace()
+    {
+        const string input = "object";
+
+        var lexer = new Lexer(input);
+        var token = lexer.Tokenize().Single();
+
+        Assert.That(token.Position, Is.EqualTo(new TokenPosition
+        {
+            LineNo = 1,
+            CharNo = 1,
+        }));
+    }
+
+    public void TestTokenPosition_WithSpaces()
+    {
+        const string input = "   object  "; // 3 leading and 2 trailing
+
+        var lexer = new Lexer(input);
+        var token = lexer.Tokenize().Single();
+
+        Assert.That(token.Position, Is.EqualTo(new TokenPosition
+        {
+            LineNo = 1,
+            CharNo = 4,
+        }));
+    }
+
+    public void TestTokenPosition_WithNewLines()
+    {
+        const string input = """
+                             
+                                object1
+                             
+                             """;
+
+        var lexer = new Lexer(input);
+        var token = lexer.Tokenize().Single();
+
+        Assert.That(token.Position, Is.EqualTo(new TokenPosition
+        {
+            LineNo = 2,
+            CharNo = 4,
+        }));
+    }
+}
+
+file static class TokenSequenceExtensions
+{
+    public static IEnumerable<Token> RemoveEndOfSource(this IEnumerable<Token> tokens)
+        => tokens.Where(static t => t.Type is not TokenType.EndOfSource);
+
+    public static Token Single(this IEnumerable<Token> tokens)
+        => Enumerable.Single(tokens.RemoveEndOfSource());
 }
