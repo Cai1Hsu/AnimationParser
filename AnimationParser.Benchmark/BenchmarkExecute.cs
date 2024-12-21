@@ -6,26 +6,25 @@ using BenchmarkDotNet.Attributes;
 [MemoryDiagnoser]
 public class BenchmarkExecute
 {
-    private readonly List<IAnimationCommand> commands;
-    private readonly IEnumerator<IAnimationCommand> commandEnumerator;
+    private readonly IEnumerator<IAnimationCommand> commands;
     private readonly AnimationContext context = new AnimationContext();
 
     public BenchmarkExecute()
     {
-        var tokens = new Lexer(Program.CodeSample).Tokenize().ToList();
+        var tokens = new Lexer(Program.SampleCode).Tokenize().ToList();
         var parser = new Parser(tokens);
 
-        commands = parser.Parse().ToList();
-        commandEnumerator = commands.GetEnumerator();
+        commands = parser.Parse().ToList().Flatten().GetEnumerator();
     }
 
     [Benchmark]
     [MethodImpl(MethodImplOptions.NoOptimization)]
-    public void BenchmarkParsing()
+    public void BenchmarkExecuting()
     {
-        while (commandEnumerator.MoveNext())
+        // parser is lazy evaluated, so we need to consume the command sequence
+        while (commands.MoveNext())
         {
-            commandEnumerator.Current.Execute(context);
+            commands.Current.Execute(context);
         }
     }
 }

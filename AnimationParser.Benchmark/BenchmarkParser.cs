@@ -1,29 +1,24 @@
 using System.Runtime.CompilerServices;
 using AnimationParser.Core;
 using AnimationParser.Core.Commands;
+using AnimationParser.Core.Tokens;
 using BenchmarkDotNet.Attributes;
 
 [MemoryDiagnoser]
 public class BenchmarkParser
 {
-    private readonly IEnumerator<IAnimationCommand> commandSequence;
+    private readonly List<Token> tokens;
 
     public BenchmarkParser()
     {
-        var tokens = new Lexer(Program.CodeSample).Tokenize().ToList();
-        var parser = new Parser(tokens);
-
-        commandSequence = parser.Parse().GetEnumerator();
+        tokens = new Lexer(Program.SampleCode).Tokenize().ToList();
     }
 
     [Benchmark]
     [MethodImpl(MethodImplOptions.NoOptimization)]
-    public void BenchmarkParsing()
+    public IAnimationCommand BenchmarkParsing()
     {
         // parser is lazy evaluated, so we have to consume all tokens
-        while (commandSequence.MoveNext())
-        {
-            _ = commandSequence.Current;
-        }
+        return new Parser(tokens).Parse().Last();
     }
 }
