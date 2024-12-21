@@ -56,16 +56,19 @@ public class Lexer
                     continue;
 
                 case '(':
+                    tokenFactory.BeginToken();
                     MoveNext();
                     yield return tokenFactory.LeftParen;
                     continue;
 
                 case ')':
+                    tokenFactory.BeginToken();
                     MoveNext();
                     yield return tokenFactory.RightParen;
                     continue;
 
                 default:
+                    tokenFactory.BeginToken();
                     if (char.IsLetter(CurrentChar))
                     {
                         yield return ReadKeywordOrIdentifier();
@@ -86,9 +89,11 @@ public class Lexer
             }
         }
 
+        tokenFactory.BeginToken();
+
         yield return tokenFactory.EndOfSource;
     }
-    
+
     /// <summary>
     /// Read a token that starts with a minus sign.
     /// Currently only support negative numbers.
@@ -102,7 +107,7 @@ public class Lexer
 
         if (char.IsDigit(CurrentChar))
         {
-            var numberToken =  ReadNumber();
+            var numberToken = ReadNumber();
 
             numberToken.SourceIndex--; // Move back to include the minus sign
             numberToken.TextLength++; // Include the minus sign in the length

@@ -8,7 +8,11 @@ namespace AnimationParser.Core.Tokens;
 /// </summary>
 public class TokenFactory
 {
-    public TokenPosition CurrentPosition { get; protected set; }
+    public TokenPosition CurrentPosition { get; protected set; } = new TokenPosition
+    {
+        LineNo = 1,
+        CharNo = 1,
+    };
 
     public int CurrentSourceIndex { get; protected set; }
 
@@ -18,14 +22,26 @@ public class TokenFactory
     {
         CurrentSourceIndex = 0;
         SourceDocument = sourceDocument;
-        startPosition = CurrentPosition = new TokenPosition
-        {
-            LineNo = 1,
-            CharNo = 1,
-        };
     }
 
-    private TokenPosition startPosition;
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal void BeginToken()
+        => startPosition = CurrentPosition;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal void EndToken()
+        => startPosition = null;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private TokenPosition TakeStartPosition()
+    {
+        var position = startPosition!.Value;
+        EndToken();
+
+        return position;
+    }
+
+    private TokenPosition? startPosition;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public void MoveNext()
@@ -72,12 +88,10 @@ public class TokenFactory
             Token token = new(SourceDocument)
             {
                 Type = TokenType.LeftParen,
-                Position = startPosition,
+                Position = TakeStartPosition(),
                 SourceIndex = GetTokenStartIndex(1),
                 TextLength = 1,
             };
-
-            startPosition = CurrentPosition;
 
             return token;
         }
@@ -91,12 +105,10 @@ public class TokenFactory
             Token token = new(SourceDocument)
             {
                 Type = TokenType.RightParen,
-                Position = startPosition,
+                Position = TakeStartPosition(),
                 SourceIndex = GetTokenStartIndex(1),
                 TextLength = 1
             };
-
-            startPosition = CurrentPosition;
 
             return token;
         }
@@ -110,12 +122,10 @@ public class TokenFactory
             Token token = new(SourceDocument)
             {
                 Type = TokenType.EndOfSource,
-                Position = startPosition,
+                Position = TakeStartPosition(),
                 SourceIndex = GetTokenStartIndex(0),
                 TextLength = 0
             };
-
-            startPosition = CurrentPosition;
 
             return token;
         }
@@ -127,12 +137,10 @@ public class TokenFactory
         Token token = new(SourceDocument)
         {
             Type = TokenType.Keyword,
-            Position = startPosition,
+            Position = TakeStartPosition(),
             SourceIndex = GetTokenStartIndex(length),
             TextLength = length
         };
-
-        startPosition = CurrentPosition;
 
         return token;
     }
@@ -143,12 +151,10 @@ public class TokenFactory
         Token token = new(SourceDocument)
         {
             Type = TokenType.Identifier,
-            Position = startPosition,
+            Position = TakeStartPosition(),
             SourceIndex = GetTokenStartIndex(length),
             TextLength = length
         };
-
-        startPosition = CurrentPosition;
 
         return token;
     }
@@ -159,12 +165,10 @@ public class TokenFactory
         Token token = new(SourceDocument)
         {
             Type = TokenType.Number,
-            Position = startPosition,
+            Position = TakeStartPosition(),
             SourceIndex = GetTokenStartIndex(length),
             TextLength = length
         };
-
-        startPosition = CurrentPosition;
 
         return token;
     }
