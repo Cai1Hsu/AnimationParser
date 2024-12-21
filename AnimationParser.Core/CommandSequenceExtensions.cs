@@ -59,7 +59,7 @@ public static class CommandSequenceExtensions
     /// </summary>
     /// <param name="commands">The sequence of commands to flatten.</param>
     /// <returns>The flattened sequence of commands.</returns>
-    public static IEnumerable<IAnimationCommand> Flatten(this IEnumerable<IAnimationCommand> commands)
+    public static IEnumerable<ISemanticallySingleCommand> Flatten(this IEnumerable<IAnimationCommand> commands)
     {
         var loopFrames = new Stack<LoopFrame>();
         loopFrames.Push(new InitialFrame(commands));
@@ -81,7 +81,7 @@ public static class CommandSequenceExtensions
                         break;
 
                     // Prevent null commands
-                    case IAnimationCommand animationCommand:
+                    case ISemanticallySingleCommand animationCommand:
                         yield return animationCommand;
                         break;
 
@@ -129,7 +129,7 @@ public static class CommandSequenceExtensions
     /// </summary>
     /// <param name="source">The source code to interpret.</param>
     /// <returns>The sequence of commands at the execution order.</returns>
-    public static IEnumerable<IAnimationCommand> InterpretExecutable(this IEnumerable<Token> tokenStream)
+    public static IEnumerable<ISemanticallySingleCommand> InterpretExecutable(this IEnumerable<Token> tokenStream)
     {
         var parser = new Parser(tokenStream);
         return parser.Parse().Flatten();

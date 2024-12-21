@@ -3,7 +3,7 @@ namespace AnimationParser.Core.Commands;
 /// <summary>
 /// Represents a command that shifts an object in a direction.
 /// </summary>
-public class ShiftCommand : IAnimationCommand
+public class ShiftCommand : ISemanticallySingleCommand
 {
     public string ObjectName { get; }
 

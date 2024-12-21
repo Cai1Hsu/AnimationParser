@@ -5,5 +5,4 @@ namespace AnimationParser.Core.Commands;
 /// </summary>
 public interface IAnimationCommand
 {
-    public void Execute(AnimationContext context);
 }

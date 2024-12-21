@@ -14,15 +14,4 @@ public class LoopCommand : IAnimationCommand
         Count = count;
         Commands = commands;
     }
-
-    public void Execute(AnimationContext context)
-    {
-        for (var i = 0; i < Count; i++)
-        {
-            foreach (var command in Commands)
-            {
-                command.Execute(context);
-            }
-        }
-    }
 }

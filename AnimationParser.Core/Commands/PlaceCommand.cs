@@ -5,7 +5,7 @@ namespace AnimationParser.Core.Commands;
 /// <summary>
 /// Represents a command that places an object at a specific position.
 /// </summary>
-public class PlaceCommand : IAnimationCommand
+public class PlaceCommand : ISemanticallySingleCommand
 {
     public string ObjectName { get; }
     public Vector2 Position { get; }

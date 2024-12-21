@@ -3,7 +3,7 @@ namespace AnimationParser.Core.Commands;
 /// <summary>
 /// Represents a command that defines an object.
 /// </summary>
-public class DefineCommand : IAnimationCommand
+public class DefineCommand : ISemanticallySingleCommand
 {
     public string ObjectName { get; }
 

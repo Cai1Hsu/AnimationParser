@@ -5,7 +5,7 @@ namespace AnimationParser.Core.Commands;
 /// The object is removed from the context and will not be drawn after
 /// this command is executed.
 /// </summary>
-public class EraseCommand : IAnimationCommand
+public class EraseCommand : ISemanticallySingleCommand
 {
     public string ObjectName { get; }
 
