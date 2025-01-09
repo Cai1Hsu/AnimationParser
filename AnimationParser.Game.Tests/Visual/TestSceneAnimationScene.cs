@@ -86,6 +86,17 @@ namespace AnimationParser.Game.Tests.Visual
             Add(codeTextBox = new CodeTextBox());
         }
 
+        protected override void Update()
+        {
+            base.Update();
+
+            var ex = scene.AnimationExecutionException;
+            scene.ClearException();
+            if (ex is not null) {
+                codeTextBox.SetErrorMessage(ex.Message);
+            }
+        }
+
         [Test]
         public void TestInterpretCode()
         {

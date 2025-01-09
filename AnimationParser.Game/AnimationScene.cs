@@ -154,13 +154,26 @@ public partial class AnimationScene : Container
     private IEnumerator<ISemanticallySingleCommand>? commandEnumerator;
     private void MoveNextCommand()
     {
-        Debug.Assert(commandEnumerator is not null);
-
-        if (commandEnumerator.MoveNext())
+        try
         {
-            commandEnumerator.Current.Execute(context);
+            Debug.Assert(commandEnumerator is not null);
+
+            if (commandEnumerator.MoveNext())
+            {
+                commandEnumerator.Current.Execute(context);
+            }
+        }
+        catch (Exception ex)
+        {
+            animationExecutionException = ex;
         }
     }
+
+    private Exception? animationExecutionException;
+
+    public Exception? AnimationExecutionException => animationExecutionException;
+
+    public void ClearException() => animationExecutionException = null;
 
     public void ExecuteAnimationCommands(IEnumerable<IAnimationCommand> commands)
     {

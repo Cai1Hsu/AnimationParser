@@ -209,7 +209,14 @@ public class AnimationWindow : ImguiWindowBase
 
         if (context != null)
         {
-            context.MoveNext();
+            try
+            {
+                context.MoveNext();
+            }
+            catch (Exception e)
+            {
+                errorMessage = e.Message;
+            }
 
             var drawList = ImGui.GetWindowDrawList();
             var windowPos = ImGui.GetWindowPos();
